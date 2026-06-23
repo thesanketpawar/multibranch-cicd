@@ -1,7 +1,7 @@
 pipeline {
 
     agent any {
-        label 'docker-agent'
+        label 'vinod'
     }
 
     environment {
