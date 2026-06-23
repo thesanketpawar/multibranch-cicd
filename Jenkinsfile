@@ -68,7 +68,7 @@ pipeline {
             when { branch 'main' }   // run monitoring only in prod
             steps {
                 sh """
-                docker-compose -f monitoring/docker-compose.yml up -d
+                docker compose -f monitoring/docker-compose.yml up -d
                 """
                 echo "Prometheus and Grafana deployed on EC2"
             }
