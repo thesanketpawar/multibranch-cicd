@@ -1,7 +1,7 @@
 pipeline {
 
     agent any {
-        labels 'vinod'
+        label 'vinod'
     }
 
     environment {
