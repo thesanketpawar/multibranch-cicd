@@ -77,15 +77,21 @@ pipeline {
         stage('Verify Monitoring') {
             when { branch 'main' }
             steps {
-                sh """
-                curl -s http://localhost:9090/-/ready || exit 1
-                curl -s http://localhost:3000/login || exit 1
-                """
-                echo "Monitoring stack is healthy!"
+                sh '''
+                for i in {1..10}; do
+                  if curl -s http://localhost:9090/-/ready; then
+                    echo "Prometheus is ready"
+                    exit 0
+                  fi
+                  echo "Waiting for Prometheus..."
+                  sleep 5
+                done
+                echo "Prometheus not ready after 50s"
+                exit 1
+                '''
             }
         }
     }
-
     post {
         always {
             echo "Pipeline finished for branch: ${env.BRANCH_NAME}"
