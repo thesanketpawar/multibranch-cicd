@@ -8,6 +8,6 @@ def home():
 
     env = os.getenv("ENVIRONMENT")
 
-    return f"<h1>{env} Environment Jay Ho</h1>"
+    return f"<h1>{env} Environment Kaam Tamam</h1>"
 
 app.run(host="0.0.0.0", port=5000)
