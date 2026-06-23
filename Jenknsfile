@@ -31,6 +31,7 @@ pipeline {
                     sh '''
                     docker build -t ${IMAGE_NAME}:${BRANCH_NAME} .
                     '''
+                    echo "Done Successfilly"
 
                 }
             }
