@@ -63,6 +63,27 @@ pipeline {
                 """
             }
         }
+
+        stage('Monitoring Stack') {
+            when { branch 'main' }   // run monitoring only in prod
+            steps {
+                sh """
+                docker-compose -f monitoring/docker-compose.yml up -d
+                """
+                echo "Prometheus and Grafana deployed on EC2"
+            }
+        }
+
+        stage('Verify Monitoring') {
+            when { branch 'main' }
+            steps {
+                sh """
+                curl -s http://localhost:9090/-/ready || exit 1
+                curl -s http://localhost:3000/login || exit 1
+                """
+                echo "Monitoring stack is healthy!"
+            }
+        }
     }
 
     post {
