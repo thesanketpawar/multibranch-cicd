@@ -1,6 +1,6 @@
 pipeline {
 
-    agent any {
+    agent {
         label 'vinod'
     }
 
@@ -94,4 +94,3 @@ pipeline {
 
     }
 }
-
