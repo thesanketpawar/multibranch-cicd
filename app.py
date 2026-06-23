@@ -1,13 +1,27 @@
-from flask import Flask
-import os
+from flask import Flask, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 
+# Attach Prometheus exporter
+metrics = PrometheusMetrics(app)
+
+# Default metrics: request count, latency, etc.
+# You can also add custom metrics
+
 @app.route('/')
 def home():
+    return "Hello, Flask App with Prometheus!"
 
-    env = os.getenv("ENVIRONMENT")
+@app.route('/api/data')
+def get_data():
+    return jsonify({"message": "This is sample data", "status": "success"})
 
-    return f"<h1>{env} Environment Changes Done</h1>"
+# Custom metric example
+@app.route('/api/custom')
+@metrics.do_not_track()  # exclude from default metrics
+def custom_endpoint():
+    return jsonify({"custom": "This endpoint is not tracked by default metrics"})
 
-app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
