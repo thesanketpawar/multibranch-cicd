@@ -1,1 +1,2 @@
-Flask
+flask==2.2.5
+prometheus-flask-exporter==0.22.4
