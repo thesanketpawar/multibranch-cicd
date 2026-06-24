@@ -19,6 +19,14 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      # SMTP config
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=thesanketpawar@gmail.com
+      - GF_SMTP_PASSWORD=jamscwvhvhldeubl   # Gmail App Password
+      - GF_SMTP_SKIP_VERIFY=true
+      - GF_SMTP_FROM_ADDRESS=thesanketpawar@gmail.com
+      - GF_SMTP_FROM_NAME=Grafana Alerts
     networks:
       - monitoring
 
@@ -33,4 +41,3 @@ services:
 networks:
   monitoring:
     driver: bridge
-
