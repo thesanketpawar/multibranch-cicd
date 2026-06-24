@@ -33,6 +33,7 @@ pipeline {
                   -e ENVIRONMENT=DEVELOPMENT \
                   ${IMAGE_NAME}:dev
                 """
+                echo "Maza aa gaya"
             }
         }
 
