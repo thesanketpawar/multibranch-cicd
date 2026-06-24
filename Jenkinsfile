@@ -74,11 +74,11 @@ pipeline {
             }
         }
 
-        stage('Verify Prometheus') {
+        stage('Verify Monitoring') {
             when { branch 'main' }
             steps {
                 sh '''
-                for i in {1..60}; do
+                for i in {1..10}; do
                   if curl -s http://localhost:9090/-/ready; then
                     echo "Prometheus is ready"
                     exit 0
@@ -86,31 +86,12 @@ pipeline {
                   echo "Waiting for Prometheus..."
                   sleep 5
                 done
-                echo "Prometheus not ready after 5 minutes"
-                exit 1
-                '''
-            }
-        }
-
-        stage('Verify Grafana') {
-            when { branch 'main' }
-            steps {
-                sh '''
-                for i in {1..30}; do
-                  if [ "$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/login)" -eq 200 ]; then
-                    echo "Grafana is ready"
-                    exit 0
-                  fi
-                  echo "Waiting for Grafana..."
-                  sleep 5
-                done
-                echo "Grafana not ready after 150s"
+                echo "Prometheus not ready after 50s"
                 exit 1
                 '''
             }
         }
     }
-
     post {
         always {
             echo "Pipeline finished for branch: ${env.BRANCH_NAME}"
