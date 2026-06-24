@@ -78,17 +78,17 @@ pipeline {
             when { branch 'main' }
             steps {
                 sh '''
-                for i in {1..10}; do
+                for i in {1..20}; do
                   if curl -s http://localhost:9090/-/ready; then
                     echo "Prometheus is ready"
                     exit 0
-                  fi
-                  echo "Waiting for Prometheus..."
-                  sleep 5
-                done
-                echo "Prometheus not ready after 50s"
-                exit 1
-                '''
+                fi
+                echo "Waiting for Prometheus..."
+                sleep 5
+            done
+            echo "Prometheus not ready after 100s"
+            exit 1
+            '''
             }
         }
     }
